@@ -17,7 +17,7 @@ public class ServerConnector extends Thread {
     private TCPClient connectionToServer;
     private final String username;
     private Map<String, String> clientList;
-    public STAT STATUS = STAT.LOGIN;
+    private STAT status = STAT.LOGIN;
     private static String OK = "OK";
     private static String ERROR = "ERROR ";
     private static String LIST = "LIST ";
@@ -25,9 +25,10 @@ public class ServerConnector extends Thread {
     private static String NEW = "NEW ";
     private static String INFO = "INFO ";
    
-     private enum STAT {LOGIN, UPDATE, EXIT};
+    public enum STAT {LOGIN, UPDATE, EXIT};
     
 
+    //Konstruktor
     public ServerConnector(String hostname, String username) {
         this.connectionToServer = new TCPClient(hostname);
         this.username = username;
@@ -42,7 +43,7 @@ public class ServerConnector extends Thread {
         } else {
             System.out.println("Verbindung stehtn nicht.");
         }
-        while (STATUS == STAT.UPDATE) {
+        while (status == STAT.UPDATE) {
             updateClientList();
             sleepUntilNextUpdate();
         }
@@ -50,13 +51,14 @@ public class ServerConnector extends Thread {
         connectionToServer.close();
     }
 
+    //Anmeldung am Server
     private boolean login() {
         boolean erfolgreich = false;
         connectionToServer.writeToServer(NEW + username);
         String antwort = connectionToServer.readFromServer();
         if (antwort.toUpperCase().equals(OK)) {
             erfolgreich = true;
-            STATUS = STAT.UPDATE;
+            status = STAT.UPDATE;
             System.out.println(String.format("Anmeldung als %s war erfolgreich.", username));
         } else if (antwort.toUpperCase().startsWith(ERROR)) {
             System.out.println(String.format("Anmeldung als %s ist fehlgeschlagen:\n\t%s", username, antwort));
@@ -66,6 +68,7 @@ public class ServerConnector extends Thread {
         return erfolgreich;
     }
 
+    //Thread für einige Sekunden Schlafenlegen, bevor das nächste Update durchgeführt werden soll
     private void sleepUntilNextUpdate() {
         try {
             Thread.currentThread().sleep(2500);
@@ -142,10 +145,14 @@ public class ServerConnector extends Thread {
     }
     
     public synchronized Map<String, String> getClientList(){
-        return (STATUS != STAT.LOGIN)? new HashMap<>(clientList) : null;
+        return (status != STAT.LOGIN)? new HashMap<>(clientList) : null;
     }
     
     public synchronized void closeConnection(){
-        STATUS = STAT.EXIT;
+        status = STAT.EXIT;
+    }
+    
+    public STAT getStatus(){
+        return status;
     }
 }
