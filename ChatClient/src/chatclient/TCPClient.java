@@ -66,7 +66,7 @@ public class TCPClient {
         System.out.println("TCP Client has sent the message: " + request);
     }
 
-    private String readFromServer() {
+    public String readFromServer() {
         /* Liefere die Antwort (reply) vom Server */
         String reply = "";
 

@@ -14,6 +14,13 @@ public class ChatClient {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+                
+        ServerConnector sc = new ServerConnector("localhost", "iBot");
+        sc.start();
+        sc.getClientList();
+        sc.getClientList();
+        sc.getClientList();
+        sc.closeConnection();
+        
     }
 }
