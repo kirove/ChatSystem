@@ -72,6 +72,9 @@ public class TCPClient {
         } catch (IOException e) {
             System.err.println("Connection aborted by server!");
 //            serviceRequested = false;
+        } catch (Exception e){
+            System.err.println("Something went wrong!");
+            e.printStackTrace();            
         }
         System.out.println("TCP Client got from Server: " + reply);
         return reply;

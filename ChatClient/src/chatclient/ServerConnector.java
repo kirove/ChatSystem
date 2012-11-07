@@ -77,6 +77,7 @@ public class ServerConnector extends Thread {
         }
     }
 
+    //INFO-Befehl an den Server senden, um 
     private boolean updateClientList() {
         boolean erfolgreich = false;
         connectionToServer.writeToServer(INFO);
