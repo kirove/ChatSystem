@@ -36,7 +36,8 @@ public class TCPClient {
 
             /* Socket-Basisstreams durch spezielle Streams filtern */
             outToServer = new DataOutputStream(clientSocket.getOutputStream());
-
+            inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            
         } catch (IOException e) {
             System.err.println(e.toString());
             System.exit(1);

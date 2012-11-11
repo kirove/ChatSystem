@@ -13,13 +13,16 @@ public class ChatClient {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
                 
         ServerConnector sc = new ServerConnector("localhost", "iBot");
         sc.start();
-        sc.getClientList();
-        sc.getClientList();
-        sc.getClientList();
+        Thread.currentThread().sleep(5000);
+        System.out.println(sc.getClientList());
+        Thread.currentThread().sleep(5000);
+        System.out.println(sc.getClientList());
+        Thread.currentThread().sleep(5000);
+        System.out.println(sc.getClientList());
         sc.closeConnection();
         
     }
