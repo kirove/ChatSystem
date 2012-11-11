@@ -20,9 +20,12 @@ public class ChatClient {
         frame = new MJFrame();
         ServerConnector sc = new ServerConnector("localhost", "iBot");
         sc.start();
-        sc.getClientList();
-        sc.getClientList();
-        sc.getClientList();
+        Thread.currentThread().sleep(5000);
+        System.out.println(sc.getClientList());
+        Thread.currentThread().sleep(5000);
+        System.out.println(sc.getClientList());
+        Thread.currentThread().sleep(5000);
+        System.out.println(sc.getClientList());
         sc.closeConnection();
 
     }

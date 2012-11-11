@@ -59,6 +59,7 @@ public class ServerConnector extends Thread {
         boolean erfolgreich = false;
         connectionToServer.writeToServer(NEW + username);
         String antwort = connectionToServer.readFromServer();
+        System.out.println("---Antwort: "+antwort);
         if (antwort.toUpperCase().equals(OK)) {
             erfolgreich = true;
             status = STAT.UPDATE;
@@ -74,9 +75,9 @@ public class ServerConnector extends Thread {
     //Thread für einige Sekunden Schlafenlegen, bevor das nächste Update durchgeführt werden soll
     private void sleepUntilNextUpdate() {
         try {
-            Thread.currentThread().sleep(2500);
+            Thread.currentThread().sleep(4000);
         } catch (InterruptedException ex) {
-            sleepUntilNextUpdate();
+            //sleepUntilNextUpdate();
         }
     }
 
