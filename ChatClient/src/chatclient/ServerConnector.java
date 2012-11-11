@@ -33,7 +33,7 @@ public class ServerConnector extends Thread {
     public ServerConnector(String hostname, String username) {
         this.connectionToServer = new TCPClient(hostname);
         this.username = username;
-        this.clientList = new HashMap<>(); //Hostname -> Chatname
+        this.clientList = new HashMap<String,String>(); //Hostname -> Chatname
 
     }
 
@@ -105,7 +105,7 @@ public class ServerConnector extends Thread {
     private boolean analyseListStringandSetClientList(String listString) {
         boolean erfolgreich = true;
         String[] splittedClientList = listString.split("\\s");
-        Map<String, String> clients = new HashMap<>();
+        Map<String, String> clients = new HashMap<String, String>();
         try {
             int n = Integer.parseInt(splittedClientList[1]);
 
@@ -118,7 +118,7 @@ public class ServerConnector extends Thread {
                 erfolgreich = false;
             } else {
                 this.clientList = clients;
-                frame.addRemoveClients(getClientList().keySet());
+//                frame.addRemoveClients(getClientList().keySet());
             }
         } catch (NumberFormatException nfe) {
             System.err.println("LIST-String: Angabe von <n> ist kein Integer-Wert.");
@@ -153,7 +153,7 @@ public class ServerConnector extends Thread {
     }
     
     public synchronized Map<String, String> getClientList(){
-        return (status != STAT.LOGIN)? new HashMap<>(clientList) : null;
+        return (status != STAT.LOGIN)? new HashMap<String, String>(clientList) : null;
     }
     
     public synchronized void closeConnection(){

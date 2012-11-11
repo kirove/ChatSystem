@@ -17,8 +17,8 @@ public class ChatClient {
      */
     public static void main(String[] args) throws InterruptedException {
 
-        frame = new MJFrame();
-        ServerConnector sc = new ServerConnector("localhost", "iBot");
+        //frame = new MJFrame();
+        ServerConnector sc = new ServerConnector("localhost", "Batman");
         sc.start();
         Thread.currentThread().sleep(5000);
         System.out.println(sc.getClientList());

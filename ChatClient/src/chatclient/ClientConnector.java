@@ -23,7 +23,7 @@ public class ClientConnector {
     private final String chatName;
     
     public ClientConnector(String chatName){
-        this.messageQueue = new LinkedBlockingDeque<>();
+        this.messageQueue = new LinkedBlockingDeque<String>();
         server = new UDPServer(this.messageQueue);
         client = new UDPClient();
         if (chatName.length()>20){
