@@ -31,6 +31,7 @@ public class ClientsList {
         return size.toString();
     }
 
+    @Override
     public String toString() {
         String result ="";
         for (Map.Entry<String, String> entry : clientsList.entrySet()) {
