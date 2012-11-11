@@ -10,7 +10,7 @@ import java.net.*;
 
 /**
  *
- * @author Nidal
+ * @author aaz815
  */
 public class ServerThread extends Thread {
     /* Arbeitsthread, der eine existierende Socket-Verbindung zur Bearbeitung erh�lt */
@@ -26,13 +26,12 @@ public class ServerThread extends Thread {
         chatServer = new ChatServer(sock,clientsList);
     }
 
-    @Override
     public void run() {
 
         String clientCommand;
 
         System.out.println("TCP Server Thread is running until BYE is received!");
-        ServerThread.serviceRequested = true;
+        this.serviceRequested = true;
         try {
 
             while (serviceRequested) {
