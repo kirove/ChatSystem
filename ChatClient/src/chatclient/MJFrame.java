@@ -13,7 +13,9 @@ import java.util.Set;
 public class MJFrame extends javax.swing.JFrame {
 
     private Set<String> clientsSet;
-  //  private UDPClient udpClient;
+    private ClientConnector clientConnector;
+    private ServerConnector serverConnector;
+    
     
     void addRemoveClients(Set<String> clients) {
         list2.removeAll();
@@ -110,7 +112,7 @@ public class MJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void sendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendActionPerformed
-   //     udpClient.sendToClients(jTextField1.getText());
+        clientConnector.sendMessage(serverConnector.getClientList(), jTextField1.getText());
         jTextField1.setText("");
     }//GEN-LAST:event_sendActionPerformed
 

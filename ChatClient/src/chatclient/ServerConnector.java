@@ -118,7 +118,7 @@ public class ServerConnector extends Thread {
                 erfolgreich = false;
             } else {
                 this.clientList = clients;
-                frame.addRemoveClients(clientList.keySet());
+                frame.addRemoveClients(getClientList().keySet());
             }
         } catch (NumberFormatException nfe) {
             System.err.println("LIST-String: Angabe von <n> ist kein Integer-Wert.");
