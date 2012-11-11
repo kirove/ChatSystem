@@ -28,13 +28,15 @@ public class TCPClient {
     }
 
     public void connect() {
-        
+
         /* Ab Java 7: try-with-resources mit automat. close benutzen! */
         try {
             /* Socket erzeugen --> Verbindungsaufbau mit dem Server */
             clientSocket = new Socket("localhost", SERVER_PORT);
 
             /* Socket-Basisstreams durch spezielle Streams filtern */
+            inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+
             outToServer = new DataOutputStream(clientSocket.getOutputStream());
             inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             
@@ -48,7 +50,7 @@ public class TCPClient {
         try {
             clientSocket.close();
         } catch (IOException ex) {
-                        System.err.println(ex.toString());
+            System.err.println(ex.toString());
             System.exit(1);
         }
     }
@@ -73,9 +75,8 @@ public class TCPClient {
         } catch (IOException e) {
             System.err.println("Connection aborted by server!");
 //            serviceRequested = false;
-        } catch (Exception e){
+        } catch (Exception e) {
             System.err.println("Something went wrong!");
-            e.printStackTrace();            
         }
         System.out.println("TCP Client got from Server: " + reply);
         return reply;

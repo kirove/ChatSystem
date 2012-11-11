@@ -10,11 +10,14 @@ package chatclient;
  */
 public class ChatClient {
 
+    private static MJFrame frame;
+
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) throws InterruptedException {
-                
+
+        frame = new MJFrame();
         ServerConnector sc = new ServerConnector("localhost", "iBot");
         sc.start();
         Thread.currentThread().sleep(5000);
@@ -24,6 +27,6 @@ public class ChatClient {
         Thread.currentThread().sleep(5000);
         System.out.println(sc.getClientList());
         sc.closeConnection();
-        
+
     }
 }

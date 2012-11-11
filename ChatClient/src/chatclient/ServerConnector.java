@@ -16,7 +16,7 @@ public class ServerConnector extends Thread {
 
     private TCPClient connectionToServer;
     private final String username;
-    private Map<String, String> clientList;
+    public Map<String, String> clientList;
     private STAT status = STAT.LOGIN;
     private static String OK = "OK";
     private static String ERROR = "ERROR ";
@@ -24,6 +24,7 @@ public class ServerConnector extends Thread {
     private static String BYE = "BYE";
     private static String NEW = "NEW ";
     private static String INFO = "INFO";
+    private MJFrame frame;
    
     public enum STAT {LOGIN, UPDATE, EXIT};
     
@@ -33,6 +34,7 @@ public class ServerConnector extends Thread {
         this.connectionToServer = new TCPClient(hostname);
         this.username = username;
         this.clientList = new HashMap<>(); //Hostname -> Chatname
+
     }
 
     @Override
@@ -46,6 +48,7 @@ public class ServerConnector extends Thread {
         while (status == STAT.UPDATE) {
             updateClientList();
             sleepUntilNextUpdate();
+
         }
         logout();
         connectionToServer.close();
@@ -107,7 +110,7 @@ public class ServerConnector extends Thread {
             int n = Integer.parseInt(splittedClientList[1]);
 
             for (int i = 2; i < splittedClientList.length; i += 2) {
-                clients.put(splittedClientList[i], splittedClientList[i + 1]);
+                clients.put(splittedClientList[i+1], splittedClientList[i]);
             }
 
             if (clients.size() != n) {
@@ -115,6 +118,7 @@ public class ServerConnector extends Thread {
                 erfolgreich = false;
             } else {
                 this.clientList = clients;
+                frame.addRemoveClients(getClientList().keySet());
             }
         } catch (NumberFormatException nfe) {
             System.err.println("LIST-String: Angabe von <n> ist kein Integer-Wert.");
@@ -125,6 +129,8 @@ public class ServerConnector extends Thread {
         }
         return erfolgreich;
     }
+    
+
 
     private boolean logout() {
         boolean erfolgreich = false;
@@ -156,5 +162,9 @@ public class ServerConnector extends Thread {
     
     public STAT getStatus(){
         return status;
+    }
+    
+    public void sendText(){
+        
     }
 }
