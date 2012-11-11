@@ -32,8 +32,8 @@ public class ClientConnector {
         this.chatName=chatName;
     }
     
-    public Queue<String> getMessageQueue(){
-        return this.messageQueue;
+    public String getMessage(){
+        return this.messageQueue.remove();
     }
     
     public void sendMessage(Map<String, String> clientList, String message){
